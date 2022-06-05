@@ -1,9 +1,18 @@
-import { useRouter } from "next/router";
 import Layout from "../../components/layout";
-import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "bson";
+import Player from "../../models/player";
+import { collections, connectToDatabase } from "../../services/database.service";
+import Game from "../../models/game";
+import dayjs from "dayjs";
+import { jsonify } from "../../lib/util";
 
-export default function player({ error, player }) {
+type Props = {
+    error: boolean,
+    player: Player,
+    games: Game[]
+}
+
+const Player = ({ error, player, games }: Props) => {
     if (error)
         return (
             <Layout home={ false }>
@@ -15,24 +24,33 @@ export default function player({ error, player }) {
         <Layout home={ false }>
             <h1>Player Name: { player.name }</h1>
             <h2>Player Score: { player.total }</h2>
+            <h2>Player Games: { games.map(game => dayjs(game.date).format("MMM D, YYYY")) }</h2>
+            <h2>This player's end score in the first game they played:</h2>
+            <h3>{ games[0].players.find(it => it._id == player._id).end }</h3>
         </Layout>
     )
 }
 
-export async function getServerSideProps(ctx) {
-    try {
-        const id = new ObjectId(ctx.query.id)
+export default Player
 
-        const client = await clientPromise
-        const player = await client.db("poker").collection("all-players").findOne({ _id: id })
+export async function getServerSideProps(context) {
+    try {
+        await connectToDatabase()
+
+        const id = new ObjectId(context.query.id)
+
+        const player = await collections.players.findOne<Player>({ _id: id })
+        const games = await collections.games.find({ _id: { $in: player.games } }).toArray() as Game[]
 
         return {
-            props: { error: !player, player: JSON.parse(JSON.stringify(player)) }
+            props: {
+                error: !player || !games,
+                player: jsonify(player),
+                games: jsonify(games)
+            }
         }
     } catch (e) {
         console.error(e)
-        return {
-            props: { error: true, player: null }
-        }
+        return { props: { error: true } }
     }
 }

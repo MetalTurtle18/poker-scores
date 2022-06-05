@@ -2,10 +2,19 @@ import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout, { siteTitle } from "../components/layout";
-import clientPromise from "../lib/mongodb";
 import dayjs from "dayjs";
+import { collections, connectToDatabase } from "../services/database.service";
+import Player from "../models/player";
+import Game from "../models/game";
+import { jsonify } from "../lib/util";
 
-export default function Home({ players, games }) {
+type Props = {
+    error: boolean,
+    players: Player[],
+    games: Game[]
+}
+
+const Index = ({ error, players, games }: Props) => {
     return (
         <Layout home>
             <Head>
@@ -24,7 +33,7 @@ export default function Home({ players, games }) {
             </p>
             <ul>
                 { players.map(player =>
-                    <li key={ player._id }>
+                    <li key={ player._id.toString() }>
                         <Link href={ "player/" + player._id }>
                             <a>Name: { player.name }</a>
                         </Link>
@@ -43,19 +52,24 @@ export default function Home({ players, games }) {
     );
 }
 
+export default Index
+
 export async function getServerSideProps() {
     try {
-        const client = await clientPromise
+        await connectToDatabase()
 
-        const db = await client.db("poker")
-
-        const players = await db.collection("all-players").find({}).toArray()
-        const games = await db.collection("all-games").find({}).toArray()
+        const players = await collections.players.find({}).toArray() as Player[]
+        const games = await collections.games.find({}).toArray() as Game[]
 
         return {
-            props: { players: JSON.parse(JSON.stringify(players)), games: JSON.parse(JSON.stringify(games)) }
+            props: {
+                error: !players || !games,
+                players: jsonify(players),
+                games: jsonify(games)
+            }
         }
     } catch (e) {
         console.error(e)
+        return { props: { error: true } }
     }
 }

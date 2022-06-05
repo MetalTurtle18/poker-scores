@@ -1,10 +1,16 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from './layout.module.sass';
+import React from "react";
 
 export const siteTitle = 'Poker Club'
 
-export default function Layout({ children, home }) {
+type Props = {
+    children: React.ReactNode
+    home: boolean
+}
+
+const Layout = ({ children, home }: Props) => {
     return (
         <div className={ styles.container }>
             <Head>
@@ -29,3 +35,5 @@ export default function Layout({ children, home }) {
         </div>
     )
 }
+
+export default Layout
