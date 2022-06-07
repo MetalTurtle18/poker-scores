@@ -1,6 +1,8 @@
 import '../styles/global.sass';
 import { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }: AppProps) {
+const app = ({ Component, pageProps }: AppProps) => {
     return <Component { ...pageProps } />
 }
+
+export default app

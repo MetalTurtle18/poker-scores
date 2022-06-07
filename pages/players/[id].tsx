@@ -1,4 +1,4 @@
-import Layout from "../../components/layout";
+import Layout from "../_layout";
 import { ObjectId } from "bson";
 import Player from "../../models/player";
 import { collections, connectToDatabase } from "../../services/database.service";
@@ -12,7 +12,7 @@ type Props = {
     games: Game[]
 }
 
-const Player = ({ error, player, games }: Props) => {
+const player = ({ error, player, games }: Props) => {
     if (error)
         return (
             <Layout home={ false }>
@@ -31,7 +31,7 @@ const Player = ({ error, player, games }: Props) => {
     )
 }
 
-export default Player
+export default player
 
 export async function getServerSideProps(context) {
     try {

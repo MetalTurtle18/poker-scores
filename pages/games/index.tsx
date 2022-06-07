@@ -1,15 +1,15 @@
 import Head from 'next/head';
-import Layout, { siteTitle } from "./_layout";
-import styles from "../styles/utils.module.sass";
+import Layout, { siteTitle } from "../_layout";
+import styles from "../../styles/utils.module.sass";
 
-const about = () => {
+const games = () => {
     return (
         <Layout home={ false }>
             <Head>
-                <title>{ siteTitle + " - ABOUT" }</title>
+                <title>{ siteTitle + " - GAMES" }</title>
             </Head>
-            <h1 className={ styles.headingLg }>About</h1>
-            <h2 className={ styles.headingMd }>This is the about page</h2>
+            <h1 className={ styles.headingLg }>Games</h1>
+            <h2 className={ styles.headingMd }>This is the games page</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                 ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -19,4 +19,4 @@ const about = () => {
     )
 }
 
-export default about
+export default games

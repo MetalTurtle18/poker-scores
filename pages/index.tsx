@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout, { siteTitle } from "../components/layout";
+import Layout, { siteTitle } from "./_layout";
 import dayjs from "dayjs";
 import { collections, connectToDatabase } from "../services/database.service";
 import Player from "../models/player";
@@ -14,7 +14,7 @@ type Props = {
     games: Game[]
 }
 
-const Index = ({ error, players, games }: Props) => {
+const index = ({ error, players, games }: Props) => {
     return (
         <Layout home>
             <Head>
@@ -34,7 +34,7 @@ const Index = ({ error, players, games }: Props) => {
             <ul>
                 { players.map(player =>
                     <li key={ player._id.toString() }>
-                        <Link href={ "player/" + player._id }>
+                        <Link href={ "players/" + player._id }>
                             <a>Name: { player.name }</a>
                         </Link>
                         <br/>
@@ -51,8 +51,6 @@ const Index = ({ error, players, games }: Props) => {
         </Layout>
     );
 }
-
-export default Index
 
 export async function getServerSideProps() {
     try {
@@ -73,3 +71,5 @@ export async function getServerSideProps() {
         return { props: { error: true } }
     }
 }
+
+export default index
