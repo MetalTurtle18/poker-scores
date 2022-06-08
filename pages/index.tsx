@@ -21,7 +21,7 @@ const index = ({ error, players, games }: Props) => {
                 <title>{ siteTitle + " - SCORES" }</title>
             </Head>
             <Image
-                src="/images/banner.jpeg"
+                src="/images/banner.svg"
                 alt="Poker Club banner"
                 width={ 1920 / 3 }
                 height={ 1080 / 3 }
