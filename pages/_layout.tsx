@@ -7,10 +7,9 @@ export const siteTitle = 'Poker Club'
 
 type Props = {
     children: React.ReactNode
-    home: boolean
 }
 
-const layout = ({ children, home }: Props) => {
+const layout = ({ children }: Props) => {
     return (
         <Container>
             <Head>

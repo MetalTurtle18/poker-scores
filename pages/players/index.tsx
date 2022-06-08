@@ -4,7 +4,7 @@ import styles from "../../styles/utils.module.sass";
 
 const players = () => {
     return (
-        <Layout home={ false }>
+        <Layout>
             <Head>
                 <title>{ siteTitle + " - PLAYERS" }</title>
             </Head>

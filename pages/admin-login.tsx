@@ -4,7 +4,7 @@ import styles from "../styles/utils.module.sass";
 
 const login = () => {
     return (
-        <Layout home={ false }>
+        <Layout>
             <Head>
                 <title>{ siteTitle + " - LOGIN" }</title>
             </Head>

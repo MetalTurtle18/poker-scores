@@ -4,7 +4,7 @@ import styles from "../../styles/utils.module.sass";
 
 const rankings = () => {
     return (
-        <Layout home={ false }>
+        <Layout>
             <Head>
                 <title>{ siteTitle + " - RANKINGS" }</title>
             </Head>

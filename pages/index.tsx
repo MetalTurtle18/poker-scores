@@ -16,7 +16,7 @@ type Props = {
 
 const index = ({ error, players, games }: Props) => {
     return (
-        <Layout home>
+        <Layout>
             <Head>
                 <title>{ siteTitle + " - SCORES" }</title>
             </Head>

@@ -4,7 +4,7 @@ import styles from "../styles/utils.module.sass";
 
 const about = () => {
     return (
-        <Layout home={ false }>
+        <Layout>
             <Head>
                 <title>{ siteTitle + " - ABOUT" }</title>
             </Head>
