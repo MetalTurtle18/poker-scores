@@ -15,13 +15,13 @@ type Props = {
 const player = ({ error, player, games }: Props) => {
     if (error)
         return (
-            <Layout home={ false }>
+            <Layout>
                 <h1>ERROR</h1>
             </Layout>
         )
 
     return (
-        <Layout home={ false }>
+        <Layout>
             <h1>Player Name: { player.name }</h1>
             <h2>Player Score: { player.total }</h2>
             <h2>Player Games: { games.map(game => dayjs(game.date).format("MMM D, YYYY")) }</h2>
